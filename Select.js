@@ -86,23 +86,25 @@ function setupCustomElement(select) {
       case 'Space':
         select.optionsCustomElement.classList.toggle('show')
         break
-      case 'ArrowUp':
+      case 'ArrowUp': {
         const prevOption = select.selectedOptionIndex === 0 ? select.options[select.selectedOptionCount - 1] : select.options[select.selectedOptionIndex - 1]
         if (prevOption) {
           select.selectValue(prevOption.value)
         }
         break
-      case 'ArrowDown':
+      }
+      case 'ArrowDown': {
         const nextOption = (select.selectedOptionIndex + 1) === select.selectedOptionCount ? select.options[0] : select.options[select.selectedOptionIndex + 1]
         if (nextOption) {
           select.selectValue(nextOption.value)
         }
         break
+      }
       case 'Escape':
       case 'Enter':
         select.optionsCustomElement.classList.remove('show')
         break
-      default:
+      default: {
         clearTimeout(debounceTimeout)
         searchTerm += e.key
         debounceTimeout = setTimeout(() => {
@@ -113,6 +115,7 @@ function setupCustomElement(select) {
           return option.label.toLowerCase().startsWith(searchTerm)
         })
         if (searchedOption) select.selectValue(searchedOption.value)
+      }
     }
   })
 }
