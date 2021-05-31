@@ -18,6 +18,10 @@ export default class Select {
     return this.options.indexOf(this.selectedOption)
   }
 
+  get selectedOptionCount() {
+    return this.options.length
+  }
+
   selectValue(value) {
     const newSelectedOption = this.options.find(option => {
       return option.value === value
@@ -83,13 +87,13 @@ function setupCustomElement(select) {
         select.optionsCustomElement.classList.toggle('show')
         break
       case 'ArrowUp':
-        const prevOption = select.options[select.selectedOptionIndex - 1]
+        const prevOption = select.selectedOptionIndex === 0 ? select.options[select.selectedOptionCount - 1] : select.options[select.selectedOptionIndex - 1]
         if (prevOption) {
           select.selectValue(prevOption.value)
         }
         break
       case 'ArrowDown':
-        const nextOption = select.options[select.selectedOptionIndex + 1]
+        const nextOption = (select.selectedOptionIndex + 1) === select.selectedOptionCount ? select.options[0] : select.options[select.selectedOptionIndex + 1]
         if (nextOption) {
           select.selectValue(nextOption.value)
         }
